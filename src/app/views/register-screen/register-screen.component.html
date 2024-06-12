@@ -1,0 +1,121 @@
+
+<div class="wrapper">
+  <div class="banner">
+    <h2>Registrar</h2>
+    <p>Registre-se gratuitamente para acessar o sistema</p>
+  </div>
+  <div class="container">
+    <div class="form-register">
+    <mat-stepper #stepper>
+      <mat-step [stepControl]="firstFormGroup" errorMessage="Preencha essa etapa.">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>E-mail e Senha</ng-template>
+          <p>E-mail</p>
+            <div class="form-field-register">
+              <mat-form-field>
+                <input matInput
+                       placeholder="Digite seu e-mail"
+                       [formControl]="email"
+                       (blur)="updateErrorMessage()"
+                       required>
+                @if (email.invalid) {
+                  <mat-error>{{errorMessage}}</mat-error>
+                }
+
+              </mat-form-field>
+              <p>Senha</p>
+              <mat-form-field>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Digite sua senha">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+              <p>Confirme a senha</p>
+              <mat-form-field>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Digite sua senha novamente">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+          <div class="register-link-container">
+            <button mat-raised-button color="basic" matStepperNext style="box-shadow: none;">CONTINUAR</button>
+            <div class="register-link">
+            <p>Já possui uma conta?</p><button mat-button routerLink="/login" routerLinkActive="active">ENTRAR</button>
+            </div>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" errorMessage="Preencha essa etapa.">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Dados Pessoais</ng-template>
+          <div class="form-field-register">
+            <p>Nome Completo</p>
+              <mat-form-field>
+                <input matInput placeholder="Digite seu nome">
+              </mat-form-field>
+
+            <p>CPF</p>
+              <mat-form-field>
+                <input matInput placeholder="Digite seu CPF">
+              </mat-form-field>
+
+            <p>Telefone</p>
+              <mat-form-field>
+                <input matInput placeholder="Digite seu telefone com DDD">
+              </mat-form-field>
+          <div class="space">
+            <button mat-raised-button color="accent" matStepperPrevious style="box-shadow: none;">VOLTAR</button>
+            <button mat-raised-button color="basic" matStepperNext style="box-shadow: none; margin-left: 14px;" >CONTINUAR</button>
+          </div>
+            </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Seu Endereço</ng-template>
+        <div class="form-field-endereco">
+          <div>
+        <p>Cidade</p>
+        <mat-form-field >
+          <input matInput placeholder="Digite sua cidade">
+        </mat-form-field>
+      </div>
+      <div>
+        <p>Estado</p>
+        <mat-form-field >
+          <input matInput placeholder="Digite seu estado">
+        </mat-form-field>
+      </div>
+      </div>
+      <div class="form-field-endereco">
+        <div>
+      <p>CEP</p>
+      <mat-form-field >
+        <input matInput placeholder="Digite seu CEP">
+      </mat-form-field>
+    </div>
+    <div>
+      <p>Complemento</p>
+      <mat-form-field >
+        <input matInput placeholder="Digite seu complemento">
+      </mat-form-field>
+    </div>
+    </div>
+    <div class="form-field-register">
+    <p>Endereço</p>
+      <mat-form-field >
+        <input matInput placeholder="Digite seu endereço">
+      </mat-form-field>
+    </div>
+    <div class="form-field-register">
+    <div class="space">
+      <button mat-raised-button color="accent" matStepperPrevious style="box-shadow: none;">VOLTAR</button>
+      <button mat-raised-button color="basic" matStepperNext style="margin-left: 14px; box-shadow: none;">FINALIZAR</button>
+    </div>
+    </div>
+      </mat-step>
+    </mat-stepper>
+    </div>
+    </div>
+
+</div>
