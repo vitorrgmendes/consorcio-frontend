@@ -101,15 +101,16 @@
                 </mat-form-field>
               </div>
               -->
-              <div>
+
+            </div>
+            <div class="form-field-register">
                 <p>Complemento</p>
                 <mat-form-field>
                   <input matInput placeholder="Digite seu complemento" formControlName="complement">
                   <mat-error *ngIf="secondFormGroup.get('complement')?.invalid">Complemento é obrigatório</mat-error>
                 </mat-form-field>
               </div>
-            </div>
-            <div class="form-field-register">
+              <div class="form-field-register">
               <p>Endereço</p>
               <mat-form-field>
                 <input matInput placeholder="Digite seu endereço" formControlName="address">
