@@ -27,7 +27,7 @@ export class CardGroupsConsortiumComponent {
     } else if (price <= 10000) {
       return '#2b5278';
     } else {
-      return '#61787b';
+      return '#A52E45';
     }
   }
 }

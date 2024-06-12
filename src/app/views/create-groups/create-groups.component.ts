@@ -11,7 +11,8 @@ import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
-//import moment from 'moment';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarModule, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-create-groups',
@@ -20,43 +21,44 @@ import { UserService } from '../../services/user.service';
   styleUrl: './create-groups.component.css',
   imports: [HeaderDetailsGroupComponent, MatInputModule, MatFormFieldModule,
     MatSlideToggleModule,MatButtonModule, MatIconModule, MatTooltipModule, RouterLink, RouterLinkActive,
-  CommonModule, FormsModule, ReactiveFormsModule ]
+  CommonModule, FormsModule, ReactiveFormsModule, MatSnackBarModule]
 })
-export class CreateGroupsComponent implements OnInit {
-  
+export class CreateGroupsComponent{
+
   groupForm: FormGroup ;
-  
-  constructor(private fb: FormBuilder, private apiService: ApiService,private userService: UserService,private router: Router) {
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private userService: UserService,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {
     this.groupForm = this.fb.group({
       nomeGrupo: ['', Validators.required],
       valorParcelas: [0, [Validators.required, Validators.min(1)]],
       valorCreditos: [0, [Validators.required, Validators.min(1)]],
       quantidadePessoas: [0, [Validators.required, Validators.min(1)]],
       privado: [false],
-      idUser: [0], 
+      idUser: [0],
     });
-  }
-
-  ngOnInit(): void {
-    
   }
 
 criarGrupo() {
   if (this.groupForm.valid) {
     let groupData = this.groupForm.value;
-    let dataCriacao = new Date();
-
+    let dataCriacao = new Date();0
     let quantidadeParcelas = groupData.quantidadePessoas;
-
     let dataFinal = new Date(dataCriacao.getTime());
     dataFinal.setMonth(dataCriacao.getMonth() + quantidadeParcelas);
 
-    //const dataFinal = dataCriacao.clone().add(quantidadeParcelas, 'months').toDate();
     groupData.dataCriacao = dataCriacao;
     groupData.dataFinal = dataFinal;
     groupData.duracaoMeses = quantidadeParcelas;
-    groupData.name = groupData.nomeGrupo; 
-    groupData.valorTotal = groupData.valorCreditos; 
+    groupData.name = groupData.nomeGrupo;
+    groupData.valorTotal = groupData.valorCreditos;
     groupData.meses = groupData.quantidadePessoas;
 
     // Obtém o usuário logado
@@ -68,9 +70,19 @@ criarGrupo() {
     this.apiService.postGroup(user.id!, groupData).subscribe(
       response => {
         console.log('Grupo criado com sucesso:', response);
+        this.snackBar.open('Grupo criado com sucesso!', 'Fechar', {
+          duration: 3000,
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+        });
       },
       error => {
         console.error('Erro ao criar grupo:', error);
+        this.snackBar.open('Erro ao criar grupo. Por favor, tente novamente.', 'Fechar', {
+          duration: 3000,
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+        });
       }
     );
   } else {
@@ -83,5 +95,5 @@ openExternalLink(): void {
   window.open('https://wa.me/5562981687434', '_blank');
 }
 
-  
+
 }

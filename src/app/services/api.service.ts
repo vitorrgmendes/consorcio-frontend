@@ -44,6 +44,10 @@ export class ApiService {
     return this.httpClient.post<CreateGroup>(`${this.url}/groups/${userId}/create`, grupo);
   }
 
+  postSignUp(user: User): Observable<User> {
+    return this.httpClient.post<User>(`${this.url}/users/signup`, user);
+  }
+
   postLogin(body: any): Observable<User> {
     return this.httpClient.post<User>(`${this.url}/users/login`, body);
   }

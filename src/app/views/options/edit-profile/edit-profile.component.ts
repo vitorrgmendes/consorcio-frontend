@@ -50,9 +50,9 @@ export class EditProfileComponent implements OnInit{
     private formActionService: FormActionService,
     private apiService: ApiService,
     private snackBar: MatSnackBar,
-    private userService: UserService,private router: Router
+    private userService: UserService,
+    private router: Router
   ) {
-
     this.obterDadosUsuario();
   }
 
